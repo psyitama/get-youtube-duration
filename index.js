@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     $('form').submit(function (e) {
         e.preventDefault();
-        video_id = $('#video_url').val().split("=")[1];
+        video_id = getID($('#video_url').val());
         $("span").text("");
 
         if(video_id != ""){
@@ -14,6 +14,11 @@ $(document).ready(function () {
         }
     });
 });
+
+function getID(url){
+    url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+    return (url[2] !== undefined) ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
+ }
 
 function getDuration(video_id, api_key) {
     $.get(
