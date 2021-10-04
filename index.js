@@ -5,6 +5,7 @@ $(document).ready(function () {
     $('form').submit(function (e) {
         e.preventDefault();
         video_id = $('#video_url').val();
+        $("span").text("");
 
         if(video_id != ""){
             getDuration(video_id, API_KEY);
