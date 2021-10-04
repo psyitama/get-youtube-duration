@@ -1,10 +1,10 @@
 /** Functions related to Youtube video duration
 */
 $(document).ready(function () {
-    const API_KEY = 'AIzaSyDB9zmVxxrEOVyUS73-zmoAt5StlCpHQn0';
+    const API_KEY = ""; // Insert your Youtube API key here first
     let video_id  = "";
 
-    $('form').submit(function (e) {
+    $("form").submit(function (e) {
         e.preventDefault();
         video_id = getID($('#video_url').val());
         $("span").text("");
@@ -38,6 +38,7 @@ function getDuration(video_id, api_key) {
     $.get(
         `https://www.googleapis.com/youtube/v3/videos?id=${video_id}&key=${api_key}&part=snippet,contentDetails`,
         function (data){
+
             if(data.pageInfo.totalResults > 0){
                 let duration = convertTime(data.items[0].contentDetails.duration);
                 $("span").text(duration);
