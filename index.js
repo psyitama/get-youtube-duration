@@ -11,7 +11,8 @@ $(document).ready(function () {
 
         if(video_id != ""){
             getDuration(video_id, API_KEY);
-        }else{
+        }
+        else{
             alert("Please enter a Youtube video ID");
         }
     });
@@ -25,7 +26,7 @@ $(document).ready(function () {
 */
 function getID(url){
     url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
-    
+
     return (url[2] !== undefined) ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
  }
 
