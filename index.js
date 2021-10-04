@@ -1,3 +1,5 @@
+/** Functions related to Youtube video duration
+*/
 $(document).ready(function () {
     const API_KEY = 'AIzaSyDB9zmVxxrEOVyUS73-zmoAt5StlCpHQn0';
     let video_id  = "";
@@ -15,11 +17,23 @@ $(document).ready(function () {
     });
 });
 
+/**
+*   DOCU: Function that extract video ID of the Youtube URL
+*   Last updated at: September 27, 2021
+*   Requires: string
+*   Author: Philip
+*/
 function getID(url){
     url = url.split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
     return (url[2] !== undefined) ? url[2].split(/[^0-9a-z_\-]/i)[0] : url[0];
  }
 
+ /**
+*   DOCU: Function that get the unformatted duration of fetched Youtube video
+*   Last updated at: October 04, 2021
+*   Requires: extracted video_id and api_key in string format
+*   Author: Psyrone
+*/
 function getDuration(video_id, api_key) {
     $.get(
         `https://www.googleapis.com/youtube/v3/videos?id=${video_id}&key=${api_key}&part=snippet,contentDetails`,
@@ -35,9 +49,16 @@ function getDuration(video_id, api_key) {
     );
 }
 
+/**
+*   DOCU: Function that converts youtube duration into hh:mm:ss format
+*   Last updated at: October 04, 2021
+*   Requires: youtube duration raw data
+*   Author: Psyrone
+*/
 function convertTime(duration){
     let time = duration.match(/\d+/g);
 
+    /* Extracting hour, minute and second from the unformatted youtube duration */
     if (duration.indexOf('M') >= 0 && duration.indexOf('H') == -1 && duration.indexOf('S') == -1){
         time = [0, time[0], 0];
     } 
@@ -50,6 +71,7 @@ function convertTime(duration){
 
     duration = 0;
 
+    /* Check if the converted time contains hour, minute and second */
     if (time.length == 3) {
         duration = duration + parseInt(time[0]) * 3600;
         duration = duration + parseInt(time[1]) * 60;
@@ -63,7 +85,8 @@ function convertTime(duration){
         duration = duration + parseInt(time[0]);
     }
 
-    let hour = Math.floor(duration / 3600);
+    /* Getting the right format for hour, minute and second using the duration value */
+    let hour   = Math.floor(duration / 3600);
     let minute = Math.floor(duration % 3600 / 60);
     let second = Math.floor(duration % 3600 % 60);
 
