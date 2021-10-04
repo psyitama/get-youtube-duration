@@ -1,7 +1,7 @@
-/** Functions related to Youtube video duration
+/** Functions related to YouTube video duration
 */
 $(document).ready(function () {
-    const API_KEY = ""; // Insert your Youtube API key here first
+    const API_KEY = ""; // Insert your YouTube API key here first
     let video_id  = "";
 
     $("form").submit(function (e) {
@@ -13,13 +13,13 @@ $(document).ready(function () {
             getDuration(video_id, API_KEY);
         }
         else{
-            alert("Please enter a Youtube video ID");
+            alert("Please enter a YouTube video ID");
         }
     });
 });
 
 /**
-*   DOCU: Function that extract video ID of the Youtube URL
+*   DOCU: Function that extract video ID of the YouTube URL
 *   Last updated at: October 04, 2021
 *   Requires: string
 *   Author: Philip
@@ -31,7 +31,7 @@ function getID(url){
  }
 
  /**
-*   DOCU: Function that get the unformatted duration of fetched Youtube video
+*   DOCU: Function that get the unformatted duration of fetched YouTube video
 *   Last updated at: October 04, 2021
 *   Requires: extracted video_id and api_key in string format
 *   Author: Psyrone
@@ -40,7 +40,6 @@ function getDuration(video_id, api_key) {
     $.get(
         `https://www.googleapis.com/youtube/v3/videos?id=${video_id}&key=${api_key}&part=snippet,contentDetails`,
         function (data){
-
             if(data.pageInfo.totalResults > 0){
                 let duration = convertTime(data.items[0].contentDetails.duration);
                 $("span").text(duration);
@@ -53,15 +52,15 @@ function getDuration(video_id, api_key) {
 }
 
 /**
-*   DOCU: Function that converts youtube duration into hh:mm:ss format
+*   DOCU: Function that converts YouTube duration into hh:mm:ss format
 *   Last updated at: October 04, 2021
-*   Requires: youtube duration raw data
+*   Requires: YouTube duration unformatted data
 *   Author: Psyrone
 */
 function convertTime(duration){
     let time = duration.match(/\d+/g);
 
-    /* Extracting hour, minute and second from the unformatted youtube duration */
+    /* Extracting hour, minute and second from the unformatted YouTube duration */
     if (duration.indexOf('M') >= 0 && duration.indexOf('H') == -1 && duration.indexOf('S') == -1){
         time = [0, time[0], 0];
     } 
