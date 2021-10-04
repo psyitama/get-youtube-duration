@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     $('form').submit(function (e) {
         e.preventDefault();
-        video_id = $('#video_url').val();
+        video_id = $('#video_url').val().split("=")[1];
         $("span").text("");
 
         if(video_id != ""){
