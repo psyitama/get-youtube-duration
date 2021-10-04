@@ -19,7 +19,7 @@ $(document).ready(function () {
 
 /**
 *   DOCU: Function that extract video ID of the Youtube URL
-*   Last updated at: September 27, 2021
+*   Last updated at: October 04, 2021
 *   Requires: string
 *   Author: Philip
 */
